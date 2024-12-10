@@ -1,0 +1,116 @@
+.header2 { 
+    color: blue; 
+    font-size: 30px; 
+} 
+ 
+.btnstart { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: green; 
+} 
+.btnstart:hover { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: rgb(1, 150, 1); 
+} 
+.btnstart:active { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: rgb(1, 40, 1); 
+} 
+.btnstop { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: red;   
+} 
+.btnstop:hover { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: rgb(150, 0, 0);     
+} 
+.btnstop:active { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: rgb(40, 0, 0);     
+} 
+.btnkill { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: blue; 
+} 
+ 
+.btnkill:hover { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: rgb(0, 0, 150); 
+} 
+ 
+.btnkill:active { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: rgb(0, 0, 40); 
+}
+.btnpause { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: yellow; 
+} 
+
+.btnpause:hover { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: rgb(150, 150, 0); 
+} 
+ 
+.btnpause:active { 
+    color: white; 
+    width: 150px; 
+    height: 100px; 
+    font-size: 30px; 
+    background-color: rgb(40, 40, 0); 
+}
+
+.map {
+    position: relative;
+    color:black;
+    width: 600px;
+    height: 600px;
+    font-size: 20px;
+    background-color: rgb(200, 200, 200);
+    border: 4px solid;
+    border-color: rgb(50, 50, 50);
+}
+
+.square {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.coord {
+    position: absolute;
+    font-size: 20px;
+    color:black;
+}

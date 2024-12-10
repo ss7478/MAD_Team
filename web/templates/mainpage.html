@@ -1,0 +1,97 @@
+<!DOCTYPE html> 
+<head> 
+    <meta charset="UTF-8"> 
+    <link rel="stylesheet" href="static/mainpage.css"> 
+    <title>ROS drone webpage</title> 
+    <p class="header2"><b>This is the ROS drone webpage</b></p> 
+</head> 
+<body>
+    <button class="btnstart" onclick="sendButton('start')">Старт</button> 
+    <button class="btnpause" onclick="sendButton('pause')">Пауза</button> 
+    <button class="btnstop" onclick="sendButton('stop')">Стоп</button> 
+    <button class="btnkill" onclick="sendButton('kill')">Killswitch</button>
+
+    <div id="response"></div>
+    <div class="map" id="map"></div>
+    <div id="list"></div>
+
+    <script>
+        function sendButton(button)
+        {
+            fetch('/buttons_handle', 
+            {
+                method: 'POST',
+                headers:
+                {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ button: button })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerText = data.message;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+        
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            let messages = []
+            let btype = ''
+
+            var socket = new WebSocket('ws://localhost:8765');
+            socket.onopen = function() {
+                console.log('WebSocket opened');
+            };
+        
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                console.log(data);
+                const squares = data;
+                const mapContanier = document.getElementById('map');
+                mapContanier.innerHTML = '';
+                messages = []
+                squares.forEach(square => {
+                        if (square.color == 'red'){
+                            btype = 'Административное здание'
+                        }
+                        else if (square.color == 'green'){
+                            btype = 'Лаборатория'
+                        }
+                        else if (square.color == 'yellow'){
+                            btype = 'Вход в шахту'
+                        }
+                        else if (square.color =='blue'){
+                            btype = 'Здание для обогащения угля'
+                        }
+                        messages.push(`Найдено здание, координаты x = ${square.x/60} м, y = ${square.y/60} м, цвет = ${square.color}, тип здания: ${btype}`)
+                        const div = document.createElement('div');
+                        const div2 = document.createElement('div2');
+                        div.className = 'square';
+                        div.style.backgroundColor = square.color;
+                        div.style.left = `${square.x}px`;
+                        div.style.bottom = `${square.y}px`;
+                        mapContanier.appendChild(div);
+                        div2.className = 'coord';
+                        div2.style.left = `${square.x + 25}px`;
+                        div2.style.bottom = `${square.y}px`;
+                        div2.innerText = `${square.x/60}, ${square.y/60}`;
+                        mapContanier.appendChild(div2);
+                });
+
+                document.getElementById('list').innerText = messages.join('\n');
+            };
+            
+            socket.onerror = function(error) {
+                console.log('WebSocket error: ' + error.message);
+            };
+            
+            socket.onclose = function() {
+                console.log('Websocket closed');
+            }
+        });
+    </script>
+</body> 
+</html>
